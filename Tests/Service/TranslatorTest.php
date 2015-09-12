@@ -21,8 +21,7 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
 
         $key = new Key();
         //@Todo Moking Response
-        $key->setValue('YourKey')
-            ->setEnabled(true);
+        $key->setValue('YourKey');
 
         $response = $translator->createRequest()
             ->setKey($key->getValue())
