@@ -22,7 +22,7 @@ class Response
     {
         $text = $this->getDecodedBodyValue('text');
 
-        if (! is_array($text)) {
+        if (!is_array($text)) {
             return null;
         }
 
@@ -31,9 +31,9 @@ class Response
 
     protected function getLang()
     {
-        $lang =  $this->getDecodedBodyValue('lang');
+        $lang = $this->getDecodedBodyValue('lang');
 
-        if (! $lang) {
+        if (!$lang) {
             return false;
         }
 
@@ -42,7 +42,7 @@ class Response
 
     public function getFrom()
     {
-        if (! $lang = $this->getLang()) {
+        if (!$lang = $this->getLang()) {
             return null;
         }
 
@@ -51,7 +51,7 @@ class Response
 
     public function getTo()
     {
-        if (! $lang = $this->getLang()) {
+        if (!$lang = $this->getLang()) {
             return null;
         }
 
@@ -65,7 +65,7 @@ class Response
 
     private function getDecodedBodyValue($key)
     {
-        if (! array_key_exists($key, $this->decodedBody)) {
+        if (!array_key_exists($key, $this->decodedBody)) {
             return null;
         }
 
