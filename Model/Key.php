@@ -6,8 +6,6 @@
 
 namespace Yandex\TranslatorBundle\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 class Key
 {
     protected $id;
@@ -17,11 +15,6 @@ class Key
     protected $requests;
 
     protected $enabled = false;
-
-    public function __construct()
-    {
-        $this->requests = new ArrayCollection();
-    }
 
     /**
      * @return mixed

@@ -1,0 +1,29 @@
+{
+  "name": "chiarillomax/yandex-translator-bundle",
+  "description": "Yandex translator integration in Symfony2",
+  "keywords": ["yandex", "translator", "symfony"],
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Chiarillo Massimo",
+      "email": "info@max090.com"
+    }
+  ],
+  "require": {
+    "symfony/framework-bundle": "~2.7",
+    "guzzle/guzzle": "^3.9"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.7"
+  },
+  "autoload": {
+    "psr-0": { "Yandex\\TranslatorBundle": "" }
+  },
+  "target-dir": "Yandex/TranslatorBundle",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  }
+}
