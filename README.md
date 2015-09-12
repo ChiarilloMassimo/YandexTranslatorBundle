@@ -3,8 +3,6 @@ YandexTranslatorBundle
 
 Use Yandex translator service in your Symfony Project
 
-#WIP
-
 Installation
 ------------
 
@@ -43,3 +41,8 @@ $request = $this->get('yandex.translator')->createRequest()
 
 $text = $request->getText(); //Ciao Max
 ```
+
+Test
+-----
+
+    phpunit

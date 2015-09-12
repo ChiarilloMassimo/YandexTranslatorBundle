@@ -7,33 +7,113 @@
 
 namespace Yandex\TranslatorBundle\Tests\Service;
 
-use Yandex\TranslatorBundle\Service\Client;
 use Yandex\TranslatorBundle\Model\Key;
 use Yandex\TranslatorBundle\Service\Translator;
+use Guzzle\Http\Exception\RequestException;
 
 class TranslatorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testTrans()
+    public function testTransaltorOk()
     {
-        $client = new Client();
+        $translator = new Translator(
+            $this->getClientMock(true)
+        );
 
-        $translator = new Translator($client);
+        $key = (new Key())
+            ->setValue('myYandexKey');
 
-        $key = new Key();
-        //@Todo Moking Response
-        $key->setValue('YourKey');
+        $response = $this->createRequest($translator, $key);
 
-        $response = $translator->createRequest()
+        $this->assertEquals('Ciao Max', $response->getText());
+        $this->assertEquals(200, $response->getCode());
+        $this->assertEquals('en', $response->getFrom());
+        $this->assertEquals('it', $response->getTo());
+    }
+
+    public function testTranslatorKo()
+    {
+        $translator = new Translator(
+            $this->getClientMock(false)
+        );
+
+        $key = (new Key())
+            ->setValue('myYandexKey');
+
+        $response = $this->createRequest($translator, $key);
+
+        //Yandex return invalid response
+        $this->assertFalse($response);
+    }
+
+    private function createRequest(Translator $translator, Key $key)
+    {
+        return $translator->createRequest()
             ->setKey($key->getValue())
             ->setText('Hello Max')
             ->setFrom('en')
             ->setTo('it')
             ->send();
+    }
 
-        //@ToDo Mocking Response
-        $this->assertEquals('Ciao Max', $response->getText());
-        $this->assertEquals(200, $response->getCode());
-        $this->assertEquals('en', $response->getFrom());
-        $this->assertEquals('it', $response->getTo());
+    private function getClientMock($sendValidRequest = true)
+    {
+        $clientMock = $this->getMockBuilder('Yandex\TranslatorBundle\Service\Client')
+            ->setMethods(['get'])
+            ->getMock();
+
+        $clientMock->expects($this->any())
+            ->method('get')
+            ->willReturn(
+                $this->getRequestMock($sendValidRequest)
+            );
+
+        return $clientMock;
+    }
+
+    private function getRequestMock($isValidRequest = true)
+    {
+        $requestMock = $this->getMockBuilder('Guzzle\Http\Message\Request')
+            ->setMethods(['send'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $sendMethodMock = $requestMock->expects(
+            $this->once()
+        )->method('send');
+
+        if ($isValidRequest) {
+            $sendMethodMock->willReturn(
+                $this->getResponseMock()
+            );
+
+            return $requestMock;
+        }
+
+        $sendMethodMock->will(
+            $this->throwException(
+                new RequestException()
+            )
+        );
+
+        return $requestMock;
+    }
+
+    protected function getResponseMock()
+    {
+        $responseMock = $this->getMockBuilder('Guzzle\Http\Message\Response')
+            ->setMethods(['getBody'])
+            ->getMock();
+
+        $responseMock->expects($this->any())
+            ->method('getBody')
+            ->willReturn(json_encode([
+                'code' => 200,
+                'lang' => 'en-it',
+                'text' => [
+                    'Ciao Max'
+                ]
+            ]));
+
+        return $responseMock;
     }
 }

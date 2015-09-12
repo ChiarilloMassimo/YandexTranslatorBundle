@@ -7,6 +7,7 @@
 namespace Yandex\TranslatorBundle\Http;
 
 use Guzzle\Http\ClientInterface;
+use Guzzle\Http\Exception\RequestException;
 use Yandex\TranslatorBundle\Service\Client;
 
 class Request
@@ -23,9 +24,9 @@ class Request
 
     protected $text;
 
-    public function __construct()
+    public function __construct(Client $client)
     {
-        $this->client = new Client();
+        $this->client = $client;
     }
 
     public function setClient(ClientInterface $client)
@@ -120,7 +121,7 @@ class Request
     public function send()
     {
         try {
-            $body = $this->client
+            $response = $this->client
                 ->get(
                     self::REQUEST_URI,
                     [],
@@ -132,12 +133,13 @@ class Request
                         ]
                     ]
                 )
-                ->send()
-                ->getBody(true);
-        } catch (\Exception $e) {
+                ->send();
+        } catch (RequestException $e) {
             return false;
         }
 
-        return new Response($body);
+        return new Response(
+            $response->getBody(true)
+        );
     }
 }
