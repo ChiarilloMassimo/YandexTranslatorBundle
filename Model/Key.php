@@ -64,4 +64,3 @@ class Key
         return $this;
     }
 }
-
