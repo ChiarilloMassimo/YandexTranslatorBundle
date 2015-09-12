@@ -1,0 +1,10 @@
+parameters:
+     yandex.translator.client.class: Yandex\TranslatorBundle\Service\Client
+     yandex.translator.class: Yandex\TranslatorBundle\Service\Translator
+
+services:
+    yandex.translator.client:
+      class: %yandex.translator.client.class%
+    yandex.translator:
+      class: %yandex.translator.class%
+      arguments: [@yandex.translator.client]
