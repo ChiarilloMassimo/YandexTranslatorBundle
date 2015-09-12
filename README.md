@@ -1,6 +1,10 @@
 YandexTranslatorBundle
 ===================
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/7659f6e8-68b3-4712-8b7e-5d05c1a7410f/mini.png)](https://insight.sensiolabs.com/projects/7659f6e8-68b3-4712-8b7e-5d05c1a7410f)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ChiarilloMassimo/YandexTranslatorBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ChiarilloMassimo/YandexTranslatorBundle/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/ChiarilloMassimo/YandexTranslatorBundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ChiarilloMassimo/YandexTranslatorBundle/build-status/master)
+
 Use Yandex translator service in your Symfony Project
 
 Installation
