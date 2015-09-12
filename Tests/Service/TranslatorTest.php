@@ -8,6 +8,7 @@
 namespace Yandex\TranslatorBundle\Tests\Service;
 
 use Yandex\TranslatorBundle\Model\Key;
+use Yandex\TranslatorBundle\Service\Client;
 use Yandex\TranslatorBundle\Service\Translator;
 use Guzzle\Http\Exception\RequestException;
 
@@ -58,6 +59,7 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
     private function getClientMock($sendValidRequest = true)
     {
         $clientMock = $this->getMockBuilder('Yandex\TranslatorBundle\Service\Client')
+            ->disableOriginalConstructor()
             ->setMethods(['get'])
             ->getMock();
 

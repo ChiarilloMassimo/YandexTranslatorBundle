@@ -1,10 +1,12 @@
 parameters:
+     yandex.translator.base_url: https://translate.yandex.net/
      yandex.translator.client.class: Yandex\TranslatorBundle\Service\Client
      yandex.translator.class: Yandex\TranslatorBundle\Service\Translator
 
 services:
     yandex.translator.client:
       class: %yandex.translator.client.class%
+      arguments: [%yandex.translator.base_url%]
     yandex.translator:
       class: %yandex.translator.class%
       arguments: [@yandex.translator.client]

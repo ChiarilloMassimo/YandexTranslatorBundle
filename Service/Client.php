@@ -12,12 +12,14 @@ class Client extends HttpClient
 {
     const USER_AGENT = 'Yandex/Translator';
 
-    public function __construct()
+    public function __construct($baseUrl)
     {
         parent::__construct();
 
         $this->setUserAgent(
             self::USER_AGENT
         );
+
+        $this->setBaseUrl($baseUrl);
     }
 }

@@ -12,7 +12,7 @@ use Yandex\TranslatorBundle\Service\Client;
 
 class Request
 {
-    const REQUEST_URI = 'https://translate.yandex.net/api/v1.5/tr.json/translate';
+    const YANDEX_TRANSLATOR_VERSION = '1.5';
 
     protected $client;
 
@@ -29,7 +29,7 @@ class Request
         $this->client = $client;
     }
 
-    public function setClient(ClientInterface $client)
+    public function setClient(Client $client)
     {
         $this->client = $client;
     }
@@ -123,7 +123,7 @@ class Request
         try {
             $response = $this->client
                 ->get(
-                    self::REQUEST_URI,
+                    sprintf('/api/v%s/tr.json/translate', self::YANDEX_TRANSLATOR_VERSION),
                     [],
                     [
                         'query' => [
@@ -132,8 +132,7 @@ class Request
                             'text' => $this->getText()
                         ]
                     ]
-                )
-                ->send();
+                )->send();
         } catch (RequestException $e) {
             return false;
         }
