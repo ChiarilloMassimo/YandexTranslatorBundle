@@ -51,40 +51,7 @@ class Key
         $this->value = $value;
         return $this;
     }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getRequests()
-    {
-        return $this->requests;
-    }
-
-    /**
-     * @param  ArrayCollection $requests
-     * @return $this
-     */
-    public function setRequests(ArrayCollection $requests)
-    {
-        $this->requests = $requests;
-
-        return $this;
-    }
-
-    public function addRequest(Request $request)
-    {
-        $this->requests->add($request);
-
-        return $this;
-    }
-
-    public function removeRequest(Request $request)
-    {
-        $this->requests->removeElement($request);
-
-        return $this;
-    }
-
+    
     public function isEnabled()
     {
         return $this->enabled;
