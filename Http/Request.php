@@ -14,6 +14,9 @@ class Request
 {
     const YANDEX_TRANSLATOR_VERSION = '1.5';
 
+    const PLAIN_FORMAT = 'plain';
+    const HTML_FORMAT  = 'html';
+
     protected $client;
 
     protected $key;
@@ -23,6 +26,8 @@ class Request
     protected $to;
 
     protected $text;
+
+    protected $format = self::PLAIN_FORMAT;
 
     public function __construct(Client $client)
     {
@@ -118,6 +123,13 @@ class Request
         return $this;
     }
 
+    public function useHtml()
+    {
+        $this->format = self::HTML_FORMAT;
+
+        return $this;
+    }
+
     public function send()
     {
         try {
@@ -127,9 +139,10 @@ class Request
                     [],
                     [
                         'query' => [
-                            'key'  => $this->getKey(),
-                            'lang' => sprintf('%s-%s', $this->getFrom(), $this->getTo()),
-                            'text' => $this->getText()
+                            'key'    => $this->getKey(),
+                            'lang'   => sprintf('%s-%s', $this->getFrom(), $this->getTo()),
+                            'text'   => $this->getText(),
+                            'format' => $this->format
                         ]
                     ]
                 )->send();
