@@ -12,7 +12,7 @@ Installation
 
 Install the bundle:
 
-    composer require chiarillomax/yandex-translator-bundle "dev-master"
+    composer require chiarillomax/yandex-translator-bundle
 
 Register the bundle in `app/AppKernel.php`:
 
