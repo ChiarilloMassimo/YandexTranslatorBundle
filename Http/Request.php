@@ -132,23 +132,19 @@ class Request
 
     public function send()
     {
-        try {
-            $response = $this->client
-                ->get(
-                    sprintf('/api/v%s/tr.json/translate', self::YANDEX_TRANSLATOR_VERSION),
-                    [],
-                    [
-                        'query' => [
-                            'key'    => $this->getKey(),
-                            'lang'   => sprintf('%s-%s', $this->getFrom(), $this->getTo()),
-                            'text'   => $this->getText(),
-                            'format' => $this->format
-                        ]
+        $response = $this->client
+            ->get(
+                sprintf('/api/v%s/tr.json/translate', self::YANDEX_TRANSLATOR_VERSION),
+                [],
+                [
+                    'query' => [
+                        'key'    => $this->getKey(),
+                        'lang'   => sprintf('%s-%s', $this->getFrom(), $this->getTo()),
+                        'text'   => $this->getText(),
+                        'format' => $this->format
                     ]
-                )->send();
-        } catch (RequestException $e) {
-            return false;
-        }
+                ]
+            )->send();
 
         return new Response(
             $response->getBody(true)
